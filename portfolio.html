@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romuel M. Talavera — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0B2338;
+    --blueprint-blue:#123A5E;
+    --blueprint-blue-2:#17466E;
+    --line-cyan:#8FD3F4;
+    --line-cyan-dim:#4C7C99;
+    --paper:#E8EDF1;
+    --paper-2:#DEE6EC;
+    --ink:#14202B;
+    --ink-dim:#48586A;
+    --amber:#E8963C;
+    --rule:#B9C6CF;
+    --rule-dark:rgba(143,211,244,0.28);
+    --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+    --font-sans:'IBM Plex Sans',system-ui,sans-serif;
+    --max:1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    font-family:var(--font-sans);
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--amber);color:var(--navy-deep);}
+
+  /* ---------- focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  /* ---------- utility ---------- */
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--line-cyan-dim);
+  }
+  section .eyebrow{color:var(--ink-dim);}
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:var(--navy-deep);
+    border-bottom:1px solid var(--rule-dark);
+  }
+  .nav-inner{
+    max-width:var(--max);margin:0 auto;padding:0 28px;
+    display:flex;align-items:center;justify-content:space-between;
+    height:56px;
+  }
+  .nav-mark{
+    font-family:var(--font-mono);
+    color:var(--line-cyan);
+    font-size:13px;letter-spacing:0.08em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .nav-mark svg{display:block;}
+  .nav-links{display:flex;gap:24px;list-style:none;margin:0;padding:0;}
+  .nav-links a{
+    font-family:var(--font-mono);
+    font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--line-cyan-dim);text-decoration:none;
+    padding:6px 2px;border-bottom:1px solid transparent;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .nav-links a:hover{color:var(--line-cyan);border-color:var(--line-cyan);}
+  .nav-toggle{display:none;background:none;border:1px solid var(--line-cyan-dim);color:var(--line-cyan);
+    font-family:var(--font-mono);font-size:11px;padding:6px 10px;letter-spacing:.08em;cursor:pointer;}
+
+  @media (max-width:760px){
+    .nav-links{
+      position:absolute;top:56px;left:0;right:0;
+      background:var(--navy-deep);
+      flex-direction:column;gap:0;
+      border-bottom:1px solid var(--rule-dark);
+      max-height:0;overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .nav-links.open{max-height:300px;}
+    .nav-links li{border-top:1px solid var(--rule-dark);}
+    .nav-links a{display:block;padding:14px 28px;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- hero / title block ---------- */
+  .hero{
+    background:
+      linear-gradient(var(--navy-deep),var(--navy-deep)),
+      repeating-linear-gradient(0deg, rgba(143,211,244,0.055) 0 1px, transparent 1px 34px),
+      repeating-linear-gradient(90deg, rgba(143,211,244,0.055) 0 1px, transparent 1px 34px);
+    color:var(--paper);
+    padding:48px 0 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .crop{
+    position:absolute;width:18px;height:18px;
+    border:1.5px solid var(--line-cyan-dim);
+  }
+  .crop.tl{top:16px;left:16px;border-right:none;border-bottom:none;}
+  .crop.tr{top:16px;right:16px;border-left:none;border-bottom:none;}
+  .crop.bl{bottom:16px;left:16px;border-right:none;border-top:none;}
+  .crop.br{bottom:16px;right:16px;border-left:none;border-top:none;}
+
+  .hero-inner{max-width:var(--max);margin:0 auto;padding:0 28px 40px;position:relative;}
+
+  .hero-top{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    gap:24px;flex-wrap:wrap;
+    padding-top:12px;
+  }
+  .hero-name{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:clamp(30px,5.4vw,52px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin:10px 0 6px;
+  }
+  .hero-role{
+    font-size:clamp(15px,2vw,19px);
+    color:var(--line-cyan);
+    margin:0 0 14px;
+    font-weight:500;
+  }
+  .hero-tag{
+    max-width:560px;
+    color:#C7D6DF;
+    line-height:1.6;
+    font-size:15px;
+    margin:0;
+  }
+
+  .titleblock{
+    font-family:var(--font-mono);
+    font-size:11px;
+    border:1px solid var(--rule-dark);
+    min-width:220px;
+  }
+  .titleblock .row{
+    display:flex;border-bottom:1px solid var(--rule-dark);
+  }
+  .titleblock .row:last-child{border-bottom:none;}
+  .titleblock .cell{
+    padding:8px 10px;flex:1;
+  }
+  .titleblock .cell + .cell{border-left:1px solid var(--rule-dark);}
+  .titleblock .label{color:var(--line-cyan-dim);letter-spacing:.08em;display:block;font-size:9px;margin-bottom:3px;}
+  .titleblock .value{color:var(--line-cyan);}
+
+  /* career schematic */
+  .schematic{margin-top:36px;}
+  .schematic-label{
+    font-family:var(--font-mono);font-size:11px;color:var(--line-cyan-dim);
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;
+  }
+  .schematic svg{width:100%;height:auto;display:block;}
+  .schem-node text{font-family:var(--font-mono);}
+  .schem-node .node-title{fill:var(--paper);font-size:11.5px;font-weight:600;}
+  .schem-node .node-sub{fill:#9FB4C2;font-size:9.5px;}
+  .schem-path{stroke:var(--line-cyan-dim);stroke-width:1.5;fill:none;}
+  .schem-dot{fill:var(--navy-deep);stroke:var(--line-cyan);stroke-width:2;}
+  .schem-dot.target{fill:var(--amber);stroke:var(--amber);}
+
+  /* ---------- sheet sections (shared) ---------- */
+  .sheet{
+    padding:64px 0 60px;
+    border-bottom:1px solid var(--rule);
+    position:relative;
+  }
+  .sheet:nth-of-type(even){background:var(--paper-2);}
+  .sheet-head{
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;margin-bottom:28px;flex-wrap:wrap;gap:8px;
+  }
+  .sheet-title{
+    font-family:var(--font-mono);
+    font-size:clamp(20px,3vw,28px);
+    font-weight:600;margin:4px 0 0;
+    letter-spacing:-0.01em;
+  }
+  .sheet-meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);letter-spacing:.06em;}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start;}
+  .about-body p{line-height:1.75;font-size:15.5px;color:var(--ink);margin:0 0 14px;}
+  .about-facts{
+    border:1px solid var(--ink);
+    font-family:var(--font-mono);font-size:12.5px;
+  }
+  .about-facts .row{display:flex;border-bottom:1px solid var(--rule);}
+  .about-facts .row:last-child{border-bottom:none;}
+  .about-facts .k{padding:10px 12px;width:42%;color:var(--ink-dim);border-right:1px solid var(--rule);}
+  .about-facts .v{padding:10px 12px;flex:1;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+
+  /* skills — legend style */
+  .legend-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+  .legend-group h3{
+    font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ink-dim);margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--rule);
+  }
+  .legend-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:9px;}
+  .legend-list li{
+    font-family:var(--font-mono);font-size:12.5px;
+    border:1px solid var(--ink);
+    padding:6px 10px;
+    position:relative;
+    background:var(--paper);
+  }
+  .sheet:nth-of-type(even) .legend-list li{background:var(--paper-2);}
+  .legend-list li::before{content:"◇ ";color:var(--amber);}
+  @media (max-width:640px){.legend-cols{grid-template-columns:1fr;}}
+
+  .lang-line{margin-top:26px;font-family:var(--font-mono);font-size:12.5px;color:var(--ink-dim);}
+  .lang-line span{color:var(--ink);}
+
+  /* experience — timeline */
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{
+    content:"";position:absolute;left:5px;top:6px;bottom:6px;
+    width:1px;background:var(--ink-dim);
+  }
+  .tl-item{position:relative;padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-26px;top:4px;
+    width:11px;height:11px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--ink);
+  }
+  .sheet:nth-of-type(even) .tl-item::before{background:var(--paper-2);}
+  .tl-role{font-weight:600;font-size:16px;margin:0 0 3px;}
+  .tl-org{font-family:var(--font-mono);font-size:12px;color:var(--ink-dim);margin:0 0 10px;letter-spacing:.03em;}
+  .tl-desc{font-size:14.5px;line-height:1.65;color:var(--ink);margin:0;max-width:640px;}
+
+  /* featured project — detail callout */
+  .detail-callout{
+    border:1px solid var(--ink);
+    padding:28px 26px;
+    position:relative;
+    background:var(--paper);
+  }
+  .sheet:nth-of-type(even) .detail-callout{background:var(--paper-2);}
+  .detail-callout::before{
+    content:"DETAIL A";
+    position:absolute;top:-11px;left:22px;
+    background:var(--amber);color:var(--navy-deep);
+    font-family:var(--font-mono);font-size:10px;font-weight:700;
+    letter-spacing:.08em;padding:3px 8px;
+  }
+  .detail-callout h3{font-size:19px;margin:6px 0 4px;}
+  .detail-role{font-family:var(--font-mono);font-size:12px;color:var(--ink-dim);margin:0 0 16px;}
+  .detail-callout p{line-height:1.7;font-size:14.5px;margin:0 0 14px;}
+  .detail-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .detail-tags span{
+    font-family:var(--font-mono);font-size:11px;color:var(--ink-dim);
+    border:1px solid var(--rule);padding:4px 8px;
+  }
+
+  /* contact — revision table */
+  footer.sheet{background:var(--navy-deep);color:var(--paper);border-bottom:none;}
+  footer.sheet .sheet-head{border-bottom:1px solid var(--rule-dark);}
+  footer.sheet .sheet-meta{color:#9FB4C2;}
+  footer .lede{max-width:520px;line-height:1.7;color:#C7D6DF;font-size:15px;margin:0 0 30px;}
+  .rev-table{font-family:var(--font-mono);font-size:13px;border:1px solid var(--rule-dark);}
+  .rev-row{display:flex;border-bottom:1px solid var(--rule-dark);}
+  .rev-row:last-child{border-bottom:none;}
+  .rev-k{width:130px;padding:12px 14px;color:var(--line-cyan-dim);letter-spacing:.06em;border-right:1px solid var(--rule-dark);flex-shrink:0;}
+  .rev-v{padding:12px 14px;color:var(--line-cyan);word-break:break-word;}
+  .foot-note{margin-top:28px;font-family:var(--font-mono);font-size:11px;color:var(--line-cyan-dim);letter-spacing:.04em;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">
+      <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="none" stroke="#8FD3F4" stroke-width="1.2"/><line x1="1" y1="8" x2="15" y2="8" stroke="#8FD3F4" stroke-width="1"/><line x1="8" y1="1" x2="8" y2="15" stroke="#8FD3F4" stroke-width="1"/></svg>
+      RMT / PORTFOLIO
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">MENU</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div>
+        <span class="eyebrow" style="color:var(--line-cyan-dim)">SHEET 01 / 05 — PROFILE</span>
+        <h1 class="hero-name">Romuel M.<br>Talavera</h1>
+        <p class="hero-role">IT Graduate — IT Support · QA · Operations</p>
+        <p class="hero-tag">BSIT graduate with hands-on experience across technical documentation, software QA, network design support, and operations. Looking to bring that range to an entry-level IT role.</p>
+      </div>
+      <div class="titleblock">
+        <div class="row">
+          <div class="cell"><span class="label">DRAWN BY</span><span class="value">RMT</span></div>
+          <div class="cell"><span class="label">DATE</span><span class="value">2026</span></div>
+        </div>
+        <div class="row">
+          <div class="cell"><span class="label">CREDENTIAL</span><span class="value">BSIT</span></div>
+          <div class="cell"><span class="label">STATUS</span><span class="value">OPEN TO WORK</span></div>
+        </div>
+        <div class="row">
+          <div class="cell" style="flex:none;width:100%"><span class="label">SCOPE</span><span class="value">IT SUPPORT · QA · OPERATIONS</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="schematic">
+      <div class="schematic-label">Fig. 1 — Career path to date</div>
+      <svg viewBox="0 0 980 150" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Timeline showing progression from BSIT studies through internship, academic project, operations roles, to target IT role">
+        <path class="schem-path" d="M40,75 L940,75"/>
+        <g class="schem-node">
+          <circle class="schem-dot" cx="40" cy="75" r="5"/>
+          <text x="40" y="45" class="node-title" text-anchor="middle">BSU – Meneses</text>
+          <text x="40" y="60" class="node-sub" text-anchor="middle">BSIT, Jun 2026</text>
+        </g>
+        <g class="schem-node">
+          <circle class="schem-dot" cx="220" cy="75" r="5"/>
+          <text x="220" y="105" class="node-title" text-anchor="middle">O&amp;B Teleservices</text>
+          <text x="220" y="120" class="node-sub" text-anchor="middle">AutoCAD Pole Design</text>
+        </g>
+        <g class="schem-node">
+          <circle class="schem-dot" cx="400" cy="75" r="5"/>
+          <text x="400" y="45" class="node-title" text-anchor="middle">MIS Project</text>
+          <text x="400" y="60" class="node-sub" text-anchor="middle">Docs Lead + QA</text>
+        </g>
+        <g class="schem-node">
+          <circle class="schem-dot" cx="580" cy="75" r="5"/>
+          <text x="580" y="105" class="node-title" text-anchor="middle">Flash Express</text>
+          <text x="580" y="120" class="node-sub" text-anchor="middle">Ops &amp; Warehouse</text>
+        </g>
+        <g class="schem-node">
+          <circle class="schem-dot" cx="760" cy="75" r="5"/>
+          <text x="760" y="45" class="node-title" text-anchor="middle">Water Co.</text>
+          <text x="760" y="60" class="node-sub" text-anchor="middle">Production Asst.</text>
+        </g>
+        <g class="schem-node">
+          <circle class="schem-dot target" cx="940" cy="75" r="6"/>
+          <text x="900" y="105" class="node-title" text-anchor="end" style="fill:#E8963C">Next: IT Role</text>
+          <text x="900" y="120" class="node-sub" text-anchor="end">Support / QA / Ops</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="about">
+  <div class="wrap">
+    <div class="sheet-head reveal">
+      <div>
+        <span class="eyebrow">Sheet 02 / 05</span>
+        <h2 class="sheet-title">About</h2>
+      </div>
+      <span class="sheet-meta">SCALE — N.T.S.</span>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-body">
+        <p>I'm a recent Bachelor of Science in Information Technology graduate from Bulacan State University – Meneses Campus, June 2026. My experience runs across technical documentation, manual software testing, and day-to-day operations — from documentation lead and QA support on a web-based health information system, to fieldwork in AutoCAD pole design for telecom networks, to warehouse and production operations.</p>
+        <p>I pick up new tools quickly, work well with both technical systems and cross-functional teams, and I'm currently looking for an entry-level opportunity in IT Support, Quality Assurance, Operations, or Technical Support where I can keep building on that foundation.</p>
+      </div>
+      <div class="about-facts">
+        <div class="row"><div class="k">Education</div><div class="v">BSIT, Bulacan State University – Meneses Campus</div></div>
+        <div class="row"><div class="k">Graduated</div><div class="v">June 2026</div></div>
+        <div class="row"><div class="k">Targeting</div><div class="v">IT Support / QA / Operations / Tech Support</div></div>
+        <div class="row"><div class="k">Location</div><div class="v">Manila — open to remote or onsite</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="skills">
+  <div class="wrap">
+    <div class="sheet-head reveal">
+      <div>
+        <span class="eyebrow">Sheet 03 / 05</span>
+        <h2 class="sheet-title">Skills Legend</h2>
+      </div>
+      <span class="sheet-meta">REF — CAPABILITIES</span>
+    </div>
+    <div class="legend-cols reveal">
+      <div class="legend-group">
+        <h3>Technical</h3>
+        <ul class="legend-list">
+          <li>Excel</li><li>Word</li><li>PowerPoint</li><li>AutoCAD</li>
+          <li>HTML</li><li>CSS</li><li>Google Earth</li><li>Data Entry</li>
+          <li>Technical Documentation</li><li>Manual Software Testing</li>
+          <li>System Evaluation</li><li>Windows</li>
+          <li>ChatGPT / Gemini / Copilot</li>
+        </ul>
+      </div>
+      <div class="legend-group">
+        <h3>Soft Skills</h3>
+        <ul class="legend-list">
+          <li>Communication</li><li>Teamwork</li><li>Problem Solving</li>
+          <li>Attention to Detail</li><li>Adaptability</li>
+          <li>Time Management</li><li>Willingness to Learn</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lang-line reveal">Languages — <span>Filipino, English</span></p>
+  </div>
+</section>
+
+<section class="sheet" id="experience">
+  <div class="wrap">
+    <div class="sheet-head reveal">
+      <div>
+        <span class="eyebrow">Sheet 04 / 05</span>
+        <h2 class="sheet-title">Experience</h2>
+      </div>
+      <span class="sheet-meta">CHRONOLOGICAL</span>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <p class="tl-role">AutoCAD Pole Designer Intern</p>
+        <p class="tl-org">O&amp;B Teleservices — 500 hours</p>
+        <p class="tl-desc">Designed telecom pole layouts in AutoCAD, prepared As-Planned and As-Built documentation, and supported fiber network planning workflows.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-role">Branch Operations &amp; Warehouse Assistant</p>
+        <p class="tl-org">Flash Express — Seasonal</p>
+        <p class="tl-desc">Handled shipment encoding, parcel scanning, and inventory tracking in a fast-paced logistics environment.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-role">Production Assistant</p>
+        <p class="tl-org">Mineral Water Company</p>
+        <p class="tl-desc">Performed cleaning and sanitizing of containers to support production quality and hygiene standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sheet" id="project">
+  <div class="wrap">
+    <div class="sheet-head reveal">
+      <div>
+        <span class="eyebrow">Sheet 05 / 05</span>
+        <h2 class="sheet-title">Featured Project</h2>
+      </div>
+      <span class="sheet-meta">ACADEMIC</span>
+    </div>
+    <div class="detail-callout reveal">
+      <h3>Web-Based MIS for Infant &amp; Obstetric Care Monitoring</h3>
+      <p class="detail-role">Role — Documentation Lead &amp; QA Support</p>
+      <p>Led technical documentation for the system and supported quality assurance testing based on the ISO 25010 standard. Gathered survey and interview data to inform system requirements and evaluation criteria.</p>
+      <div class="detail-tags">
+        <span>Technical Documentation</span>
+        <span>ISO 25010</span>
+        <span>Manual QA Testing</span>
+        <span>Requirements Gathering</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="sheet" id="contact">
+  <div class="wrap">
+    <div class="sheet-head reveal">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2 class="sheet-title">Get in touch</h2>
+      </div>
+      <span class="sheet-meta">END OF SET</span>
+    </div>
+    <p class="lede reveal">Open to opportunities in IT Support, QA, Operations, or Technical Support — based in Manila, available remote or onsite.</p>
+    <div class="rev-table reveal">
+      <div class="rev-row"><div class="rev-k">EMAIL</div><div class="rev-v">your.email@example.com</div></div>
+      <div class="rev-row"><div class="rev-k">PHONE</div><div class="rev-v">+63 9XX XXX XXXX</div></div>
+      <div class="rev-row"><div class="rev-k">LINKEDIN</div><div class="rev-v">linkedin.com/in/your-profile</div></div>
+      <div class="rev-row"><div class="rev-k">LOCATION</div><div class="rev-v">Manila, Philippines</div></div>
+    </div>
+    <p class="foot-note">© 2026 Romuel M. Talavera — built without a single line typed on a laptop.</p>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ links.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+  });
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+</script>
+
+</body>
+</html>
